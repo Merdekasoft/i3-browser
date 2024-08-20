@@ -45,6 +45,18 @@ Type=Application
 Categories=Network;WebBrowser;
 EOL
 
+# Create post-installation script to set i3-browser as the default web browser
+cat <<EOL > ${PACKAGE_NAME}/DEBIAN/postinst
+#!/bin/bash
+# Set i3-browser as the default web browser
+xdg-settings set default-web-browser i3-browser.desktop
+update-alternatives --install /usr/bin/x-www-browser x-www-browser /usr/local/bin/i3-browser 100
+update-alternatives --set x-www-browser /usr/local/bin/i3-browser
+update-alternatives --install /usr/bin/gnome-www-browser gnome-www-browser /usr/local/bin/i3-browser 100
+update-alternatives --set gnome-www-browser /usr/local/bin/i3-browser
+EOL
+chmod +x ${PACKAGE_NAME}/DEBIAN/postinst
+
 # Build the package
 dpkg-deb --build ${PACKAGE_NAME}
 
