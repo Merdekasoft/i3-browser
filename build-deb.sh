@@ -8,6 +8,7 @@ PACKAGE_VERSION="1.0"
 mkdir -p ${PACKAGE_NAME}/DEBIAN
 mkdir -p ${PACKAGE_NAME}/usr/local/bin
 mkdir -p ${PACKAGE_NAME}/opt/${PACKAGE_NAME}
+mkdir -p ${PACKAGE_NAME}/usr/share/applications
 
 # Copy the main Python script
 cp main.py ${PACKAGE_NAME}/opt/${PACKAGE_NAME}/
@@ -20,8 +21,8 @@ Section: web
 Priority: optional
 Architecture: all
 Depends: python3, python3-pyqt5, python3-pyqt5.qtwebengine
-Maintainer: Your Name <your.email@example.com>
-Description: A simple web browser for i3 window manager
+Maintainer: Admin <merdekasoft@gmail.com>
+Description: A simple web browser for the i3 window manager
  A minimalist web browser for the i3 window manager, written in Python with PyQt5.
 EOL
 
@@ -31,6 +32,18 @@ cat <<EOL > ${PACKAGE_NAME}/usr/local/bin/i3-browser
 python3 /opt/${PACKAGE_NAME}/main.py "\$@"
 EOL
 chmod +x ${PACKAGE_NAME}/usr/local/bin/i3-browser
+
+# Create a desktop entry for the application
+cat <<EOL > ${PACKAGE_NAME}/usr/share/applications/i3-browser.desktop
+[Desktop Entry]
+Name=I3 Browser
+Comment=A simple web browser for the i3 window manager
+Exec=i3-browser
+Icon=web-browser
+Terminal=false
+Type=Application
+Categories=Network;WebBrowser;
+EOL
 
 # Build the package
 dpkg-deb --build ${PACKAGE_NAME}
