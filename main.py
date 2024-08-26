@@ -64,12 +64,12 @@ class Browser(QMainWindow):
         self.navbar.addAction(forward_btn)
 
         # Reload button
-        reload_btn = QAction('', self)
+        reload_btn = QAction('', self)
         reload_btn.triggered.connect(self.browser.reload)
         self.navbar.addAction(reload_btn)
 
         # Home button
-        home_btn = QAction('', self)
+        home_btn = QAction('', self)
         home_btn.triggered.connect(self.navigate_home)
         self.navbar.addAction(home_btn)
 
@@ -79,7 +79,7 @@ class Browser(QMainWindow):
         self.navbar.addWidget(self.url_bar)
 
         # Add Toggle Download Manager button
-        toggle_download_btn = QAction(QIcon(), '', self)
+        toggle_download_btn = QAction(QIcon(), '', self)
         toggle_download_btn.triggered.connect(self.toggle_download_manager)
         self.navbar.addAction(toggle_download_btn)
 
